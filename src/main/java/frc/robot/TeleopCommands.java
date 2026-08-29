@@ -12,5 +12,22 @@ public class TeleopCommands
         this.arm = arm;
     }
 
-    // TODO: your code here
+    // I want to move the pivot to 0.39 rotations, and then it is going to wait 2 seconds, then returns to 0.
+    public Command pivotSequence()
+    {
+        return Commands.sequence(
+            Commands.runOnce(() -> arm.setPosition(0.39), arm),
+            Commands.waitSeconds(2),
+            Commands.runOnce(() -> arm.setPosition(0), arm)
+        );
+    }
+
+    /** Sets the pivot to 0.39 rotations and prints a message at the same time. */
+    public Command pivotAndPrint()
+    {
+        return Commands.parallel(
+            Commands.runOnce(() -> arm.setPosition(0.39), arm),
+            Commands.runOnce(() -> System.out.println("pivot moved to 0.39 rotations"))
+        );
+    }
 }
