@@ -13,4 +13,17 @@ public class TeleopCommands
     }
 
     // TODO: your code here
+    public Command Sequential() {
+        return Commands.sequence(
+          Commands.runOnce(() -> arm.setPosition(0.39)),
+          Commands.waitSeconds(2),
+          Commands.runOnce(() -> arm.setPosition(0))
+          );
+    }
+    public Command Parallel() {
+        return Commands.parallel(
+            Commands.runOnce(() -> arm.setPosition(0.5)),
+            Commands.print("arm set to position 0.5")
+        );
+    }
 }
