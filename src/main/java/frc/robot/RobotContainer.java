@@ -24,7 +24,7 @@ public class RobotContainer {
     // TODO: move these command definitions into a new file called TeleopCommands.java
 
     // TODO: replace this with a single command using m_driverController.b().whileTrue(...)
-    //m_driverController.b().onTrue(Commands.runOnce(() -> pivot.setPosition(0.39))).onFalse(Commands.runOnce(() -> pivot.setPosition(0)));
+    m_driverController.b().onTrue(m_teleopCommands.pivotUp()).onFalse(m_teleopCommands.pivotDown());
 
     // TODO: Add a sequential command to button B that sets the pivot to 0.39 rotations, waits 2 seconds, and then sets the pivot back to 0 
     m_driverController.b().whileTrue(m_teleopCommands.Sequential());

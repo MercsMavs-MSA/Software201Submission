@@ -22,8 +22,14 @@ public class TeleopCommands
     }
     public Command Parallel() {
         return Commands.parallel(
-            Commands.runOnce(() -> arm.setPosition(0.5)),
+            Commands.runOnce(() -> arm.setPosition(0.39)),
             Commands.print("arm set to position 0.5")
         );
+    }
+    public Command pivotUp() {
+        return Commands.runOnce(() -> arm.setPosition(0.39));
+    }
+    public Command pivotDown() {
+        return Commands.runOnce(() -> arm.setPosition(0));
     }
 }
