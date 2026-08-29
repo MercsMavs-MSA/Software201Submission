@@ -18,7 +18,7 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    m_driverController.b().whileTrue(teleop.pivotSequence());
+    m_driverController.b().whileTrue(teleop.holdPivot());
 
     m_driverController.x().onTrue(teleop.pivotAndPrint());
   }

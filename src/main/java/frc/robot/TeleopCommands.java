@@ -12,6 +12,16 @@ public class TeleopCommands
         this.arm = arm;
     }
 
+    /** Holds the pivot at 0.39 rotations while scheduled, then returns to 0. */
+    public Command holdPivot()
+    {
+        return Commands.startEnd(
+            () -> arm.setPosition(0.39),
+            () -> arm.setPosition(0),
+            arm
+        );
+    }
+
     // I want to move the pivot to 0.39 rotations, and then it is going to wait 2 seconds, then returns to 0.
     public Command pivotSequence()
     {
