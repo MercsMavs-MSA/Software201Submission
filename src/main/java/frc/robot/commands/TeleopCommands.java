@@ -20,10 +20,11 @@ public class TeleopCommands {
     }
 
     public Command parallelRace() {
-        return Commands.runOnce(
-            () -> transfer.runTransfer(15), transfer)
-            .raceWith(Commands.print("Running"))
-            .andThen(Commands.runOnce(() -> transfer.runTransfer(0), transfer));
+        return Commands.race(
+            Commands.run(() -> transfer.runTransfer(15), transfer),
+            Commands.print("Running"),
+            Commands.waitSeconds(3.0)
+            ).andThen(Commands.runOnce(() -> transfer.runTransfer(0), transfer));
             
     }
 }
