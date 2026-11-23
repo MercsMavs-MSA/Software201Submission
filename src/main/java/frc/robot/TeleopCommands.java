@@ -6,7 +6,7 @@ import frc.robot.subsystems.arm.ArmSubsystem;
 
 public class TeleopCommands
 {
-    ArmSubsystem arm;
+    private final ArmSubsystem arm;
     public TeleopCommands(ArmSubsystem arm)
     {
         this.arm = arm;
