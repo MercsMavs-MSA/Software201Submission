@@ -1,33 +1,34 @@
+
 package frc.robot;
 
+import frc.robot.Constants.OperatorConstants;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.subsystems.arm.ArmSubsystem;
-import frc.robot.subsystems.arm.ArmConstants.OperatorConstants;
+import frc.robot.Constants.WheelConstants;
+import frc.robot.subsystems.WheelSubsystem;
 
 public class RobotContainer {
-  // The robot's subsystems are defined here
-  ArmSubsystem pivot = new ArmSubsystem();
-
-  private final CommandXboxController m_driverController =
-      new CommandXboxController(OperatorConstants.kDriverControllerPort);
-
+  //putting in system
+  private final WheelSubsystem wheelSubsystem = new WheelSubsystem();
+  //putting in driver controller
+  private final CommandXboxController driverController =
+    new CommandXboxController(OperatorConstants.kDriverControllerPort);
   public RobotContainer() {
-    // Configure the trigger bindings
     configureBindings();
   }
-
   private void configureBindings() {
-
-    // TODO: move these command definitions into a new file called TeleopCommands.java
-
-    // TODO: replace this with a single command using m_driverController.b().whileTrue(...)
-    m_driverController.b().onTrue(Commands.runOnce(() -> pivot.setPosition(0.39))).onFalse(Commands.runOnce(() -> pivot.setPosition(0)));
-
-    // TODO: Add a sequential command to button B that sets the pivot to 0.39 rotations, waits 2 seconds, and then sets the pivot back to 0 
-
-    // TODO: Add a parallel command to button X that sets the pivot to 0.39 rotations and prints a message to the console at the same time 
-  }
+    //xbox a button will spin wheel to target velocity
+    driverController.a().onTrue(
+      wheelSubsystem.runOnce(() ->
+        wheelSubsystem.goToVelocity(WheelConstants.WHEEL_TARGET_VELOCITY_RPS))
+    );
+    //Xbox b button will stop wheel
+    driverController.b().onTrue(
+      wheelSubsystem.runOnce(wheelSubsystem::stop)
+    );
+  } 
+  public Command getAutonomousCommand() {
+    return Commands.none();
+  } 
 }
